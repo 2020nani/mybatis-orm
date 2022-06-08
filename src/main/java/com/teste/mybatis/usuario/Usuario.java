@@ -5,7 +5,7 @@ public class Usuario {
 
     private String id;
     private String nome;
-    private String salario;
+    private Integer salario;
 
     public String getId() {
         return id;
@@ -15,7 +15,7 @@ public class Usuario {
         return nome;
     }
 
-    public String getSalario() {
+    public Integer getSalario() {
         return salario;
     }
 
@@ -27,13 +27,22 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public void setSalario(String salario) {
+    public void setSalario(Integer salario) {
         this.salario = salario;
     }
 
-    public Usuario(String id, String nome, String salario) {
+    public Usuario(String id, String nome, Integer salario) {
         this.id = id;
         this.nome = nome;
         this.salario = salario;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id='" + id + '\'' +
+                ", nome='" + nome + '\'' +
+                ", salario='" + salario + '\'' +
+                '}';
     }
 }
