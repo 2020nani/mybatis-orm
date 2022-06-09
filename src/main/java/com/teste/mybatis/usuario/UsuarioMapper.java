@@ -28,4 +28,7 @@ public interface UsuarioMapper {
 
     @Select("select * from usuario where salario>=#{salario}")
     List<Usuario> findBySalarioMoreThan(Integer salario);
+
+    @Delete("delete from usuario")
+    void deleteAll();
 }

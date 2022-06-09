@@ -9,54 +9,51 @@ import java.util.UUID;
 @RestController
 public class UsuarioController {
 
-    private UsuarioMapper usuarioMapper;
+    private UsuarioServiceImpl usuarioService;
 
-    public UsuarioController(UsuarioMapper usuarioMapper) {
-        this.usuarioMapper = usuarioMapper;
+    public UsuarioController(UsuarioServiceImpl usuarioService) {
+        this.usuarioService = usuarioService;
     }
+
 
     @PostMapping("/usuario")
     public String criaUsuario(@RequestBody Usuario usuario){
-        try {
             String id = UUID.randomUUID().toString();
-            usuarioMapper.createNewTableIfNotExists("usuario");
             if(usuario.getId() == null){
                 usuario.setId(id);
             }
-            usuarioMapper.save(usuario);
-            return usuario.toString();
-        }catch (Exception e) {
-            return "falhou";
-        }
+
+            return usuarioService.save(usuario);
     }
 
     @GetMapping("/all")
     public List<Usuario> findall(){
-        usuarioMapper.createNewTableIfNotExists("usuario");
-        return usuarioMapper.findAll();
+        usuarioService.createNewTableIfNotExists("usuario");
+        return usuarioService.findAll();
     }
 
     @GetMapping("/findById/{id}")
     public Optional<Usuario> findById(@PathVariable String id){
-            return Optional.ofNullable(usuarioMapper.findById(id)
+            return Optional.ofNullable(usuarioService.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Nao ha usuario cadastrado com este id")));
-
-
     }
 
     @GetMapping("/findBySalarioMoreThan/{salario}")
     public List<Usuario> findBySalarioMoreThan(@PathVariable Integer salario){
-        return usuarioMapper.findBySalarioMoreThan(salario);
-
-
+        return usuarioService.findBySalarioMoreThan(salario);
 
     }
 
     @PutMapping("/edit/{id}/{nome}")
     public String findById(@PathVariable String id, @PathVariable String nome){
-        Usuario usuario = usuarioMapper.findById(id)
+        Usuario usuario = usuarioService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Nao ha usuario cadastrado com este id"));
-        usuarioMapper.update(id,nome);
+        usuarioService.update(id,nome);
         return "Usuario com id " + id + " atualizado com sucesso";
+    }
+
+    @DeleteMapping("/usuario")
+    public String deleteAll(){
+        return usuarioService.deleteAll();
     }
 }
