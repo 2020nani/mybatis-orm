@@ -31,4 +31,7 @@ public interface UsuarioMapper {
 
     @Delete("delete from usuario")
     void deleteAll();
+
+
+
 }

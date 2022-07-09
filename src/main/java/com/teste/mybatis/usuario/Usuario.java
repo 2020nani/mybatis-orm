@@ -1,10 +1,19 @@
 package com.teste.mybatis.usuario;
 
 
+import org.springframework.lang.NonNull;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class Usuario {
 
+    @NotBlank
     private String id;
+    @NotBlank
     private String nome;
+
+    @NotNull
     private Integer salario;
 
     public String getId() {
@@ -39,7 +48,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" +
+        return "{" +
                 "id='" + id + '\'' +
                 ", nome='" + nome + '\'' +
                 ", salario='" + salario + '\'' +

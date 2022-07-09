@@ -1,10 +1,16 @@
 package com.teste.mybatis.usuario;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.io.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @RestController
 public class UsuarioController {
@@ -17,7 +23,7 @@ public class UsuarioController {
 
 
     @PostMapping("/usuario")
-    public String criaUsuario(@RequestBody Usuario usuario){
+    public String criaUsuario(@RequestBody @Valid Usuario usuario){
             String id = UUID.randomUUID().toString();
             if(usuario.getId() == null){
                 usuario.setId(id);
